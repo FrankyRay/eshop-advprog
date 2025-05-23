@@ -30,10 +30,7 @@ public class ProductRepository {
 
     public Product update(String productId, Product product) {
         Product old = find(productId);
-        old.setProductName(
-                product.getProductName() != null
-                        ? product.getProductName()
-                        : old.getProductName());
+        old.setProductName(product.getProductName());
         old.setProductQuantity(product.getProductQuantity());
         return old;
     }
