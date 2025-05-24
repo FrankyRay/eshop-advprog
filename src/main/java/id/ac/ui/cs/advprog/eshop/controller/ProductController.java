@@ -88,5 +88,22 @@ class CarController extends ProductController {
     }
 
     @GetMapping("/editCar/{carId}")
-    public String editCarPage(Model model) {}
+    public String editCarPage(@PathVariable String carId, Model model) {
+        Car car = carservice.findById(carId);
+        model.addAttribute("car", car);
+        return "editCar";
+    }
+
+    @PostMapping("/editCar/{carId}")
+    public String editCarPost(@ModelAttribute Car car, Model model) {
+        System.out.println(car.getCarId());
+        carservice.update(car.getCarId(), car);
+        return "redirect:listCar";
+    }
+
+    @PostMapping("/deleteCar")
+    public String deleteCarPost(@RequestParam("carId") String carId) {
+        carservice.deleteCarById(carId);
+        return "redirect:listCar";
+    }
 }
